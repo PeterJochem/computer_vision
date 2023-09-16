@@ -1,4 +1,6 @@
+# --- External imports ---
 import numpy as np
+from matplotlib import pyplot as plt
 
 class Image:
     """
@@ -12,6 +14,12 @@ class Image:
                 The image's pixels.
         """
         self.pixels = pixels
+
+    @staticmethod
+    def create_empty_image(height: int, width: int) -> "Image":
+        """..."""
+        pixels = np.zeros((height, width))
+        return Image(pixels)
 
     @property
     def pixels(self) -> np.ndarray:
@@ -110,6 +118,21 @@ class Image:
         if not isinstance(input_value, int):
             raise TypeError("...")
         self._width = input_value
+
+    def get(self, row: int, column: int, depth=0) -> float:
+        """..."""
+        # if is_pixel_in_image ...
+        return self.pixels[row][column]
+
+    def set(self, row: int, column: int, value: float, depth=0):
+        """..."""
+        # if is_pixel_in_image ...
+        self.pixels[row][column] = value
+
+    def view(self):
+        """..."""
+        plt.imshow(self.pixels)
+        plt.show()
 
     def extract_height_from_pixels(self) -> int:
         """..."""
