@@ -32,22 +32,15 @@ def test_dummy(pixels: np.ndarray, expected_edge_image: Image):
     parameters = SobelEdgeDetectorParameters(detect_vertical=True)
     edge_detector = SobelEdgeDetector(parameters)
     edges = edge_detector.detect(image)
-    # assert are_images_equal(edges, expected_edge_image)
-    edges.view()
-    print(image.width)
-    print(image.height)
+    assert are_images_equal(edges, expected_edge_image)
+    #edges.view()
 
 
 def test_dummy_2():
-    return True
+    #return True
     path = "/Users/peterjochem/Desktop/Personal_Learning/computer_vision/code/data/Lenna_binary.png"
     image = GrayscaleImage.create_from_path(path)
     # image.view()
-    print("")
-    print(image.pixels)
-    print(image.width)
-    print(image.height)
-    print(image.pixels.shape)
     parameters = SobelEdgeDetectorParameters(detect_vertical=True)
     edge_detector = SobelEdgeDetector(parameters)
     edges = edge_detector.detect(image)

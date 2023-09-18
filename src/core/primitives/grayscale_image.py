@@ -41,7 +41,7 @@ class GrayscaleImage(Image):
                 ...
         """
         pixels = np.asarray(PILImage.open(path))
-        return Image(pixels)
+        return to_grayscale_from_pixels(pixels)
 
     def get(self, row: int, column: int) -> float:
         """..."""
@@ -52,3 +52,30 @@ class GrayscaleImage(Image):
         """..."""
         # if is_pixel_in_image ...
         self.pixels[row][column] = value
+
+
+def rgb2gray(pixel: np.ndarray) -> float:
+    """..."""
+    r, g, b = pixel[0], pixel[1], pixel[2]
+    return (0.2989 * r) + (0.5870 * g) + (0.1140 * b)
+
+
+def to_grayscale(image: "RGBImage") -> "GrayscaleImage":
+    """..."""
+    grayscale_image = GrayscaleImage.create_empty_image(image.width, image.height)
+    for row_index in range(image.height):
+        for column_index in range(image.width):
+            grayscale_pixel = rgb2gray(image.get(row_index, column_index))
+            grayscale_image.set(row_index, column_index, grayscale_pixel)
+    return grayscale_image
+
+
+def to_grayscale_from_pixels(pixels: np.ndarray) -> GrayscaleImage:
+    """..."""
+    height, width, depth = pixels.shape
+    grayscale_pixels = np.zeros((height, width))
+    for row_index in range(height):
+        for column_index in range(width):
+            grayscale_pixel = rgb2gray(pixels[row_index][column_index])
+            grayscale_pixels[row_index][column_index] = grayscale_pixel
+    return GrayscaleImage(grayscale_pixels)
